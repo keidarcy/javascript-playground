@@ -1,5 +1,6 @@
 // const mongoose = require('mongoose');
 const _ = require('lodash');
+
 const config = require('config');
 const express = require('express');
 const bcrypt = require('bcrypt');
@@ -43,7 +44,7 @@ router.post('/', async (request, response) => {
   if (!validPassword)
     return response.status(400).send('2 invalid email or password');
 
-  const token = jwt.sign({ _id: user._id }, config.get('jwtPrivateKey'));
+  const token = user.generateAuthToken();
 
   return response.send(token);
   // user = new User(_.pick(request.body, ['name', 'email', 'password']));

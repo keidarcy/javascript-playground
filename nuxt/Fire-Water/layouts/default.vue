@@ -12,7 +12,7 @@ export default {
   }
 }
 </script>
-
+layouts/default.vue layouts/default.vue
 <style>
 html {
   -webkit-text-size-adjust: 100%;
