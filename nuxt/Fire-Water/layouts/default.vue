@@ -9,6 +9,21 @@ import NavBar from '~/components/NavBar.vue'
 export default {
   components: {
     NavBar
+  },
+  // https//github.com/nuxt/vue-meta
+  // metaInfo = head(witn Nuxt)
+  head() {
+    return {
+      titleTemplate: '%s - Real World Sexy pipe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'where you can find all the events taking in your neighborhood'
+        }
+      ]
+    }
   }
 }
 </script>
