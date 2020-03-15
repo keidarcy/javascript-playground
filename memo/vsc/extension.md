@@ -1,7 +1,5 @@
 <h2 align="center">Personal vsc extensions</h2>
 
----
-
 - [Editor](#editor)
   - [Vim](#vim)
   - [Code Runner](#code-runner)
@@ -16,6 +14,7 @@
   - [JavaScript (ES6) code snippets](#javascript-es6-code-snippets)
   - [Import Cost](#import-cost)
   - [TypeScript Toolbox](#typescript-toolbox)
+  - [Vue](#vue)
   - [Vue VS Code Extension Pack](#vue-vs-code-extension-pack)
   - [Vue 2 Snippets](#vue-2-snippets)
   - [Vetur](#vetur)
@@ -115,6 +114,13 @@
 ### TypeScript Toolbox
 
 - [reference](https://marketplace.visualstudio.com/items?itemName=DSKWRK.vscode-generate-getter-setter)
+
+### Vue
+
+Syntax Highlight for Vue.js
+quick `{{ }}`
+
+- [reference](https://marketplace.visualstudio.com/items?itemName=jcbuisson.vue)
 
 ### Vue VS Code Extension Pack
 
