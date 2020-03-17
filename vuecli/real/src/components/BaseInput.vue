@@ -1,10 +1,16 @@
 <template>
-    <div>
-      <label v-if="label">{{ label }}</label>
-      <input type="text" class="field" :value="value" @input="updateValue" v-bind="$attrs">
-    </div>
+  <div>
+    <label v-if="label">{{ label }}</label>
+    <input
+      type="text"
+      class="field"
+      :value="value"
+      @input="updateValue"
+      v-bind="$attrs"
+    />
+  </div>
 </template>
-    
+
 <script>
 export default {
   inheritAttrs: false,
@@ -19,10 +25,18 @@ export default {
     updateValue() {
       this.$emit('input', event.target.value)
     }
+  },
+  computed: {
+    listeners() {
+      return {
+        ...this.$listeners,
+        input: this.updateValue
+      }
+    }
   }
 }
 </script>
-    
+
 <style scoped>
 .icon-wrapper {
   display: inline-flex;
