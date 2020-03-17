@@ -9,23 +9,7 @@
       <h3>Name & describe your event</h3>
       <BaseInput label="Tisssssle" v-model="event.title" placeholder="Title" />
       <BaseInput label="Description" v-model="event.description" placeholder="Description" />
-      <div class="field">
-        <label>Description</label>
-        <input
-          v-model="event.description"
-          type="text"
-          placeholder="Add a description"
-        />
-      </div>
-      <h3>Where is your event?</h3>
-      <div class="field">
-        <label>Location</label>
-        <input
-          v-model="event.location"
-          type="text"
-          placeholder="Add a location"
-        />
-      </div>
+      <BaseInput label="Location" v-model="event.location" placeholder="Location" />
       <h3>When is your event?</h3>
       <div class="field">
         <label>Date</label>
