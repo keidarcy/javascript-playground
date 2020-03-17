@@ -1,0 +1,12 @@
+name: NPM Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+
+  publish-npm:
+
+  publish-gpr:

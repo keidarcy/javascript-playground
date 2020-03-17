@@ -7,14 +7,8 @@
         <option v-for="cat in categories" :key="cat">{{ cat }}</option>
       </select>
       <h3>Name & describe your event</h3>
-      <div class="field">
-        <label>Title</label>
-        <input
-          v-model="event.title"
-          type="text"
-          placeholder="Add an event title"
-        />
-      </div>
+      <BaseInput label="Tisssssle" v-model="event.title" placeholder="Title" />
+      <BaseInput label="Description" v-model="event.description" placeholder="Description" />
       <div class="field">
         <label>Description</label>
         <input
@@ -51,6 +45,12 @@
 <script>
 import { datepicker } from 'vuejs-datepicker'
 export default {
+  // props: {
+  //   label: {
+  //     type: String,
+  //     default: ''
+  //   }
+  // },
   components: {
     datepicker
   },
