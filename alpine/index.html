@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div x-data="{count:0}">
+      <button @click="count++">+</button>
+      <button @click="count--">-</button>
+      <button x-text="count"></button>
+    </div>
+    <!-- <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js"
+      defer
+    ></script> -->
+    <script>
+      // Keep track of some data
+      // when the data changes, you refesh th Dom
+      const walkDom = (el, callback) => {
+        callback(el)
+        el = el.firstElementChild
+        while (el) {
+          walkDom(el, callback)
+          el = el.nextElementSibling
+        }
+      }
+      const refreshDom = () => {
+        walkDom(root, (el) => {
+          if (el.hasAttribute('x-text')) {
+            let expression = el.getAttribute('x-text')
+            // el.innerText = eval(`with(data)(${expression})`)
+            el.innerText = eval(`data.${expression}`)
+          }
+        })
+      }
+      const getInitialData = () => {
+        let dataString = root.getAttribute('x-data')
+        return eval(`(${dataString})`)
+      }
+      const observe = (data) => {
+        return new Proxy(data, {
+          set(target, key, value) {
+            target[key] = value
+            refreshDom()
+          },
+        })
+      }
+      let root = document.querySelector('[x-data]')
+      let rawData = getInitialData()
+      // let data = getInitialData()
+      let data = observe(rawData)
+      refreshDom()
+    </script>
+  </body>
+</html>
