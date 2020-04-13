@@ -3,7 +3,6 @@ package main
 import "fmt"
 
 func testStr() {
-    var i int64
     var s string
     fmt.Println("i is ", i)
     fmt.Println("s is ", s)

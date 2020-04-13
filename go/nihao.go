@@ -36,7 +36,7 @@ func testSlice() {
     vals := make([]int, 0)
     for i:=0; i<3; i++ {
 	vals = append(vals, i)
-	fmt.Println(vals, lvals), cap(vals))
+	fmt.Println(vals, lvals, cap(vals))
     }
     //vals2 := []int{3,4,5}
     //newVar := append(vals, vals2...)
