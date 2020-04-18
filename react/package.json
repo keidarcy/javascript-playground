@@ -1,0 +1,23 @@
+{
+  "name": "toolbox",
+  "version": "1.0.0",
+  "description": "- nodejs   - mongoose   - JWT   - cheerio - vuejs   - vuex   - vue-router   - nuxt - tailwind - memo   - ssh in osx   - vscode",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xyyolab/toolbox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xyyolab/toolbox/issues"
+  },
+  "homepage": "https://github.com/xyyolab/toolbox#readme",
+  "dependencies": {
+    "create-react-app": "^3.4.1"
+  }
+}
