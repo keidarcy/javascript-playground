@@ -3,16 +3,17 @@ import React, { Component } from 'react'
 class ListGroup extends Component {
   state = {}
   render() {
-    const { items, onItemSelect, textProperty, valueProperty } = this.props
+    const { items, selectedGenre, onItemSelect, textProperty, valueProperty } = this.props
     return (
       <React.Fragment>
         <ul className="list-group col">
-          <li className="list-group-item">All Genres</li>
           {items.map((genre) => (
             <li
               key={genre[valueProperty]}
               style={{ cursor: 'pointer' }}
-              className="list-group-item"
+              className={
+                selectedGenre === genre ? 'list-group-item active' : 'list-group-item'
+              }
               onClick={() => onItemSelect(genre)}
             >
               {genre[textProperty]}
@@ -22,6 +23,11 @@ class ListGroup extends Component {
       </React.Fragment>
     )
   }
+}
+
+ListGroup.defaultProps = {
+  textProperty: 'name',
+  valueProperty: '_id'
 }
 
 export default ListGroup
