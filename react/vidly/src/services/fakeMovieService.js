@@ -8,7 +8,7 @@ const movies = [
     numberInStock: 6,
     like: false,
     dailyRentalRate: 2.5,
-    publishDate: '2018-01-03T19:04:28.809Z',
+    publishDate: '2018-01-03T19:04:28.809Z'
   },
   {
     _id: '5b21ca3eeb7f6fbccd471816',
@@ -17,7 +17,7 @@ const movies = [
     numberInStock: 5,
 
     like: true,
-    dailyRentalRate: 2.5,
+    dailyRentalRate: 2.5
   },
   {
     _id: '5b21ca3eeb7f6fbccd471817',
@@ -26,7 +26,7 @@ const movies = [
     numberInStock: 8,
 
     like: true,
-    dailyRentalRate: 3.5,
+    dailyRentalRate: 3.5
   },
   {
     _id: '5b21ca3eeb7f6fbccd471819',
@@ -35,7 +35,7 @@ const movies = [
     numberInStock: 7,
 
     like: true,
-    dailyRentalRate: 3.5,
+    dailyRentalRate: 3.5
   },
   {
     _id: '5b21ca3eeb7f6fbccd47181a',
@@ -44,7 +44,7 @@ const movies = [
     numberInStock: 7,
 
     like: true,
-    dailyRentalRate: 3.5,
+    dailyRentalRate: 3.5
   },
   {
     _id: '5b21ca3eeb7f6fbccd47181b',
@@ -53,7 +53,7 @@ const movies = [
     numberInStock: 7,
 
     like: true,
-    dailyRentalRate: 3.5,
+    dailyRentalRate: 3.5
   },
   {
     _id: '5b21ca3eeb7f6fbccd47181e',
@@ -62,7 +62,7 @@ const movies = [
     numberInStock: 7,
 
     like: true,
-    dailyRentalRate: 4.5,
+    dailyRentalRate: 4.5
   },
   {
     _id: '5b21ca3eeb7f6fbccd47181f',
@@ -71,7 +71,7 @@ const movies = [
     numberInStock: 4,
 
     like: true,
-    dailyRentalRate: 3.5,
+    dailyRentalRate: 3.5
   },
   {
     _id: '5b21ca3eeb7f6fbccd471821',
@@ -79,8 +79,8 @@ const movies = [
     genre: { _id: '5b21ca3eeb7f6fbccd471818', name: 'Action' },
     numberInStock: 7,
     like: true,
-    dailyRentalRate: 3.5,
-  },
+    dailyRentalRate: 3.5
+  }
 ]
 
 export function getMovies() {
@@ -93,14 +93,14 @@ export function getMovie(id) {
 
 export function saveMovie(movie) {
   let movieInDb = movies.find((m) => m._id === movie._id) || {}
-  movieInDb.name = movie.name
+  movieInDb.title = movie.title
   movieInDb.genre = genresAPI.genres.find((g) => g._id === movie.genreId)
   movieInDb.numberInStock = movie.numberInStock
 
   movieInDb.dailyRentalRate = movie.dailyRentalRate
 
   if (!movieInDb._id) {
-    movieInDb._id = Date.now()
+    movieInDb._id = Date.now().toString()
     movies.push(movieInDb)
   }
 

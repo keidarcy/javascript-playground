@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { getMovies } from '../services/fakeMovieService'
+import { getGenres } from '../services/fakeGenreService'
 import Pagination from './common/pagination'
 import MoviesTable from './movieTable'
 import ListGroup from './common/listGroup'
 import { paginate } from '../utils/paginate'
-import { getGenres } from '../services/fakeGenreService'
 import lodash from 'lodash'
+import { Link } from 'react-router-dom'
+import SearchBox from './common/searchBox'
 
 class Movies extends Component {
   state = {
@@ -13,7 +15,10 @@ class Movies extends Component {
     genres: [],
     pageSize: 4,
     currentPage: 1,
-    sortColumn: { path: 'title', order: 'asc' }
+    sortColumn: { path: 'title', order: 'asc' },
+    word: '',
+    searchQuery: '',
+    selectedGenre: null
   }
   componentDidMount() {
     const genres = [{ name: 'All Genres', _id: false }, ...getGenres()]
@@ -27,21 +32,37 @@ class Movies extends Component {
   }
   getPageData = () => {
     const {
-      movies: allMovies,
-      currentPage,
-      selectedGenre,
       pageSize,
-      sortColumn
+      currentPage,
+      sortColumn,
+      selectedGenre,
+      searchQuery,
+      movies: allMovies
     } = this.state
-    const filtered =
+    let filtered =
       selectedGenre && selectedGenre._id
         ? allMovies.filter((m) => m.genre._id === selectedGenre._id)
         : allMovies
+    if (searchQuery) {
+      filtered = allMovies.filter((m) =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      )
+    } else if (selectedGenre && selectedGenre._id) {
+      filtered = allMovies.filter((m) => m.genre._id === selectedGenre._id)
+    }
     const sorted = lodash.orderBy(filtered, [sortColumn.path], [sortColumn.order])
-    console.log(sorted)
     const data = paginate(sorted, currentPage, pageSize)
-    console.log(data)
     return { totalCount: filtered.length, data }
+  }
+  // handleSearchChange = (e) => {
+  //   let word = this.state.word
+  //   word = e.currentTarget.value
+  //   this.setState({ word })
+  //   const movies = this.state.movies.filter((m) => m.title.includes(word))
+  //   this.setState({ movies })
+  // }
+  handleSearch = (query) => {
+    this.setState({ searchQuery: query, searchGenre: null, currentPage: 1 })
   }
   render() {
     const { currentPage, pageSize, sortColumn } = this.state
@@ -52,6 +73,9 @@ class Movies extends Component {
 
     return (
       <React.Fragment>
+        <Link to="/movies/new">
+          <button className="btn btn-primary">New Movie</button>
+        </Link>
         <h1 className="text-center my-5">There are {totalCount} movies</h1>
         <div className="row">
           <div className="col-3">
@@ -61,13 +85,16 @@ class Movies extends Component {
               items={this.state.genres}
             />
           </div>
-          <MoviesTable
-            onLikeToggle={this.handleLike}
-            onDelete={this.handleDelete}
-            onSort={this.handleSort}
-            sortColumn={sortColumn}
-            movies={movies}
-          />
+          <div className="col">
+            <SearchBox onChange={this.handleSearch} value={this.state.searchQuery} />
+            <MoviesTable
+              onLikeToggle={this.handleLike}
+              onDelete={this.handleDelete}
+              onSort={this.handleSort}
+              sortColumn={sortColumn}
+              movies={movies}
+            />
+          </div>
         </div>
         <Pagination
           className="m-5"
