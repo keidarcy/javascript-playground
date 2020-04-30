@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { getMovies } from '../services/fakeMovieService'
-import { getGenres } from '../services/fakeGenreService'
+import { toast } from 'react-toastify'
+import { getMovies, deleteMovie } from '../services/movieService'
+import { getGenres } from '../services/genreService'
 import Pagination from './common/pagination'
 import MoviesTable from './movieTable'
 import ListGroup from './common/listGroup'
@@ -20,9 +21,14 @@ class Movies extends Component {
     searchQuery: '',
     selectedGenre: null
   }
-  componentDidMount() {
-    const genres = [{ name: 'All Genres', _id: false }, ...getGenres()]
-    this.setState({ movies: getMovies(), genres })
+  async componentDidMount() {
+    // console.log(1,getGenres());
+    // const genreData = await (await getGenres()).data
+    const { data: genreData } = await getGenres()
+    // const moviesData = await (await getMovies()).data
+    const { data: moviesData } = await getMovies()
+    const genres = await [{ name: 'All Genres', _id: false }, ...genreData]
+    this.setState({ movies: moviesData, genres })
   }
   handleGenreSelect = (genre) => {
     this.setState({ selectedGenre: genre, currentPage: 1 })
@@ -65,6 +71,7 @@ class Movies extends Component {
     this.setState({ searchQuery: query, searchGenre: null, currentPage: 1 })
   }
   render() {
+    const { user } = this.props
     const { currentPage, pageSize, sortColumn } = this.state
     const { length: count } = this.state.movies
     const { totalCount, data: movies } = this.getPageData()
@@ -73,9 +80,11 @@ class Movies extends Component {
 
     return (
       <React.Fragment>
-        <Link to="/movies/new">
-          <button className="btn btn-primary">New Movie</button>
-        </Link>
+        {user && (
+          <Link to="/movies/new">
+            <button className="btn btn-primary">New Movie</button>
+          </Link>
+        )}
         <h1 className="text-center my-5">There are {totalCount} movies</h1>
         <div className="row">
           <div className="col-3">
@@ -116,9 +125,18 @@ class Movies extends Component {
     movies[index].like = !movies[index].like
     this.setState({ movies })
   }
-  handleDelete = (movie) => {
+  handleDelete = async (movie) => {
+    const originMovies = this.state.movies
     const movies = this.state.movies.filter((c) => c._id !== movie._id)
     this.setState({ movies })
+    try {
+      await deleteMovie(movie._id)
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) {
+        toast.error('already deleted')
+      }
+      this.setState({ movies: originMovies })
+    }
   }
 }
 
