@@ -1,0 +1,19 @@
+version: '3'
+# services:
+# sftp:
+# image: atmoz/sftp
+# volumes:
+# ./upload:/home/foo/upload
+# ports:
+# '2222:22'
+# command: foo::1001
+
+services:
+  sftp:
+  image: atmoz/sftp
+  volumes:
+    - ~/.ssh/<public keyname>:/home/<username>/.ssh/keys/<public keyname>:ro
+    - ./<local directory>:/home/<container directory>
+  ports:
+    - '2222:22'
+  command: <username>:<password>:1001
