@@ -9,10 +9,19 @@ const httpServer = http.createServer();
 //   console.log('connected');
 // });
 
+const getConnectionCount = () => {
+  httpServer.getConnections((_err, count) => {
+    console.log('count:', count);
+  });
+  setTimeout(getConnectionCount, 1000);
+};
+
+getConnectionCount();
+
 httpServer.on('request', (req, res) => {
-  console.log('req:', req);
-  req.rawHeaders;
-  req.res.write('get request');
+  // console.log('req:', req);
+  // req.rawHeaders;
+  res.write('get request');
   res.end();
 });
 
