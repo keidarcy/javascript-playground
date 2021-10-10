@@ -13,6 +13,13 @@ class A {
   change() {
     this.b.b();
   }
+
+  c() {
+    const res = this.b.c();
+    console.log('res:', res);
+
+    return res;
+  }
 }
 
 exports.A = A;

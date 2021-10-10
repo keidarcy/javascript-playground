@@ -18,6 +18,11 @@ class B {
     this.name = 'second';
   }
 
+  c() {
+    const num = Math.random() * 10;
+    return num;
+  }
+
   printName() {
     console.log('name:', this.name);
   }
