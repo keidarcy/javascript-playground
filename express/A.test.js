@@ -4,7 +4,10 @@ const { B } = require('./B.js');
 const result = 2;
 // https://stackoverflow.com/questions/47093028/how-to-mock-the-instance-function-of-another-class-using-jest
 jest.mock('./B.js', () => {
-  const mBInstance = { c: jest.fn(() => result) };
+  const mBInstance = {
+    c: jest.fn(() => result),
+    asyncD: jest.fn().mockResolvedValue(result),
+  };
   const mB = jest.fn(() => mBInstance);
   return { B: mB };
 });
@@ -27,5 +30,10 @@ describe('test class A', () => {
   test('test method a mock class', () => {
     const cName = a.c();
     expect(cName).toBe(result);
+  });
+
+  test('test method a mock class with async function', async () => {
+    const dName = await a.asyncD();
+    expect(dName).toBe(result);
   });
 });

@@ -1,5 +1,6 @@
-const { setInterval } = require('timers');
+const { setInterval, setTimeout } = require('timers');
 const { promisify } = require('util');
+
 const timer = promisify(setTimeout);
 
 class B {
@@ -21,6 +22,11 @@ class B {
   c() {
     const num = Math.random() * 10;
     return num;
+  }
+
+  async asyncD() {
+    await timer(1000);
+    return 1;
   }
 
   printName() {

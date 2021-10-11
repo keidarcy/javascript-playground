@@ -20,6 +20,13 @@ class A {
 
     return res;
   }
+
+  async asyncD() {
+    console.log('object:', this.b);
+
+    const res = await this.b.asyncD();
+    return res;
+  }
 }
 
 exports.A = A;
