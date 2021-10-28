@@ -1,5 +1,4 @@
 const { A } = require('./A.js');
-const { B } = require('./B.js');
 
 const result = 2;
 // https://stackoverflow.com/questions/47093028/how-to-mock-the-instance-function-of-another-class-using-jest
@@ -37,3 +36,4 @@ describe('test class A', () => {
     expect(dName).toBe(result);
   });
 });
+
